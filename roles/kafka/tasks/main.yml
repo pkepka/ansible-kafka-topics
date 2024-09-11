@@ -1,0 +1,77 @@
+---
+# tasks file for kafka
+
+- name: create topic1
+  kafka_topics:
+    mode: 'create'
+    broker: '{{ broker }}'
+    topic: '{{ topic1 }}'
+    replication_factor: 1
+    num_partitions: 2
+
+- name: create topic1 [again, show of idempotency]
+  kafka_topics:
+    mode: 'create'
+    broker: '{{ broker }}'
+    topic: '{{ topic1 }}'
+    replication_factor: 1
+    num_partitions: 2
+
+- name: create topic2
+  kafka_topics:
+    mode: 'create'
+    broker: '{{ broker }}'
+    topic: '{{ topic2 }}'
+    replication_factor: 1
+    num_partitions: 4
+
+- name: list topics
+  kafka_topics:
+    mode: 'list'
+    broker: '{{ broker }}'
+
+- name: delete topic1
+  kafka_topics:
+    mode: 'delete'
+    broker: '{{ broker }}'
+    topic: '{{ topic1 }}'
+
+- name: delete topic1 [again, show of idempotency]
+  kafka_topics:
+    mode: 'delete'
+    broker: '{{ broker }}'
+    topic: '{{ topic1 }}'
+
+- name: alter retention topic2
+  kafka_topics:
+    mode: 'alter_retention'
+    broker: '{{ broker }}'
+    topic: '{{ topic2 }}'
+    retention: 86400000
+
+- name: show config topic2
+  kafka_topics:
+    mode: 'show_config'
+    broker: '{{ broker }}'
+    topic: '{{ topic2 }}'
+
+- name: alter num_partitions topic2
+  kafka_topics:
+    mode: 'alter_num_partitions'
+    broker: '{{ broker }}'
+    topic: '{{ topic2 }}'
+    num_partitions: 1
+  ignore_errors: yes
+
+- name: list topics
+  kafka_topics:
+    mode: 'list'
+    broker: '{{ broker }}'
+
+- name: delete topic2
+  kafka_topics:
+    mode: 'delete'
+    broker: '{{ broker }}'
+    topic: '{{ topic2 }}'
+
+

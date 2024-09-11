@@ -1,0 +1,11 @@
+- name: test a kafka role and the kafka_topic module
+  hosts: localhost
+  vars:
+      broker: 'localhost:9092'
+      topic1: 'topic1'
+      topic2: 'topic2'
+
+  roles:
+  - kafka
+  
+  
